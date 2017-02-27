@@ -1,0 +1,10 @@
+<layout>
+<grid>
+<column>Make</column>
+<column>Model</column>
+<column>Year</column>
+</grid>
+<menu>
+<button class="com.epam.bl.MyAction">Sort table</button>
+</menu>
+</layout>
