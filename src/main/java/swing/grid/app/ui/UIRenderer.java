@@ -14,21 +14,17 @@ public class UIRenderer extends JFrame {
 
     private final BusinessFunction businessFunction;
 
-    private JTable table;
-
-    private SortingTableModel model;
+    private final DataTable dataTable;
 
     @Inject
-    public UIRenderer(BusinessFunction businessFunction) {
+    public UIRenderer(BusinessFunction businessFunction, DataTable dataTable) {
         this.businessFunction = businessFunction;
-        this.model = new SortingTableModel();
-        this.table = new JTable(this.model);
+        this.dataTable = dataTable;
     }
 
-    public void createFrame(Layout layout, Data data) {
+    public void createFrame(Layout layout, JPanel dataPanel) {
         JPanel mainPanel = new JPanel(new BorderLayout());
 
-        JPanel dataPanel = createDataTable(layout, data);
         JPanel buttonPanel = createButtonPanel(layout);
 
         mainPanel.add(dataPanel, BorderLayout.NORTH);
@@ -57,32 +53,6 @@ public class UIRenderer extends JFrame {
                 businessFunction.doAction();
             }
         });
-    }
-
-    private JPanel createDataTable(Layout layout, Data data) {
-        JPanel panel = new JPanel();
-        JScrollPane scrollPane = new JScrollPane(table);
-
-        createHeader(layout);
-        createData(data);
-
-        panel.add(scrollPane);
-        return panel;
-    }
-
-    private void createHeader(Layout layout) {
-        model.setColumnIdentifiers(layout.getGrid().getColumn().toArray());
-        table.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 12));
-    }
-
-    private void createData(Data data) {
-        String[] row;
-        for (Data.Car car : data.getCar()) {
-            row = new String[]{
-                    car.getMake(), car.getModel(), String.valueOf(car.getYear())
-            };
-            model.addRow(row);
-        }
     }
 
     private void configure() {

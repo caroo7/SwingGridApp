@@ -3,9 +3,9 @@ package swing.grid.app.injector;
 import com.google.inject.AbstractModule;
 import swing.grid.app.bl.BusinessFunction;
 import swing.grid.app.model.Layout;
-import swing.grid.app.ui.UIRenderer;
+import swing.grid.app.ui.DataTable;
+import swing.grid.app.ui.DataTableImpl;
 
-import javax.swing.*;
 import java.util.List;
 
 public class BindInjector extends AbstractModule {
@@ -18,6 +18,8 @@ public class BindInjector extends AbstractModule {
 
     @Override
     protected void configure() {
+        bind(DataTable.class).to(DataTableImpl.class);
+
         for(Layout.Menu.Button button: buttons) {
             Class clazz = null;
             try {
@@ -29,9 +31,6 @@ public class BindInjector extends AbstractModule {
 
             bind(BusinessFunction.class).to(clazz);
         }
-
-
-        bind(JFrame.class).to(UIRenderer.class);
     }
 
 }

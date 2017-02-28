@@ -5,6 +5,7 @@ import swing.grid.app.convert.Converter;
 import swing.grid.app.injector.BindInjector;
 import swing.grid.app.model.Data;
 import swing.grid.app.model.Layout;
+import swing.grid.app.ui.DataTable;
 import swing.grid.app.ui.UIRenderer;
 
 import javax.swing.*;
@@ -19,14 +20,14 @@ public class Main {
         final Data data = (Data) dataConverter.convert("data.xml");
 
         Injector injector = Guice.createInjector(new BindInjector(layout.getMenu().getButton()));
+        final DataTable dataTable = injector.getInstance(DataTable.class);
+        final JPanel dataPanel = dataTable.createDataTable(layout, data);
         final BusinessFunction function = injector.getInstance(BusinessFunction.class);
-        final UIRenderer uiRendered = injector.getInstance(UIRenderer.class);
-
 
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                uiRendered.createFrame(layout, data);
+                new UIRenderer(function, dataTable).createFrame(layout, dataPanel);
             }
         });
     }

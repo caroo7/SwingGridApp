@@ -1,23 +1,22 @@
 package swing.grid.app.bl;
 
-import swing.grid.app.ui.SortingTableModel;
+import swing.grid.app.ui.DataTable;
 
 import javax.inject.Inject;
 
 
 public class MyAction implements BusinessFunction {
 
-    private SortingTableModel sortingTableModel;
+    private DataTable dataTable;
 
     @Inject
-    public MyAction(SortingTableModel sortingTableModel) {
-        this.sortingTableModel = sortingTableModel;
+    public MyAction(DataTable dataTable) {
+        this.dataTable = dataTable;
     }
 
     @Override
     public void doAction() {
-        sortingTableModel.sort();
-        System.out.println("Table sorted!");
+        dataTable.sort();
     }
 
 }
