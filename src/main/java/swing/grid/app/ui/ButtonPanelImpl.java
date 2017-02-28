@@ -1,7 +1,6 @@
 package swing.grid.app.ui;
 
 import swing.grid.app.bl.BusinessFunction;
-import swing.grid.app.model.Data;
 import swing.grid.app.model.Layout;
 
 import javax.inject.Inject;
@@ -10,35 +9,27 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class UIRenderer extends JFrame {
+public class ButtonPanelImpl implements ButtonPanel {
 
-    private final BusinessFunction businessFunction;
+    private BusinessFunction businessFunction;
 
-    private final DataTable dataTable;
+    private boolean isSortedActionEnabled = false;
 
     @Inject
-    public UIRenderer(BusinessFunction businessFunction, DataTable dataTable) {
+    public ButtonPanelImpl(BusinessFunction businessFunction) {
         this.businessFunction = businessFunction;
-        this.dataTable = dataTable;
     }
 
-    public void createFrame(Layout layout, JPanel dataPanel) {
-        JPanel mainPanel = new JPanel(new BorderLayout());
-
-        JPanel buttonPanel = createButtonPanel(layout);
-
-        mainPanel.add(dataPanel, BorderLayout.NORTH);
-        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
-        add(mainPanel);
-        configure();
-    }
-
-    private JPanel createButtonPanel(Layout layout) {
+    @Override
+    public JPanel createButtonPanel(Layout layout) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         for (Layout.Menu.Button button : layout.getMenu().getButton()) {
             JButton buttonComponent = new JButton(button.getValue());
-            addActionToButton(buttonComponent);
+            if (!isSortedActionEnabled) {
+                addActionToButton(buttonComponent);
+                isSortedActionEnabled = true;
+            }
             buttonComponent.setAlignmentX(Component.CENTER_ALIGNMENT);
             panel.add(buttonComponent);
         }
@@ -53,12 +44,6 @@ public class UIRenderer extends JFrame {
                 businessFunction.doAction();
             }
         });
-    }
-
-    private void configure() {
-        pack();
-        setVisible(true);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
 }

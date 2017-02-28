@@ -4,7 +4,6 @@ import swing.grid.app.ui.DataTable;
 
 import javax.inject.Inject;
 
-
 public class MyAction implements BusinessFunction {
 
     private DataTable dataTable;
