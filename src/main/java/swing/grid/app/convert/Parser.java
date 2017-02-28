@@ -7,10 +7,9 @@ import java.io.File;
 
 public class Parser<T> {
 
-    Object unmarshall(File file, Class<?> clazz) throws JAXBException {
+    Object unmarshall(File file, Class<T> clazz) throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(clazz);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-
         return unmarshaller.unmarshal(file);
     }
 

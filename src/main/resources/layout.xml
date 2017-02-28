@@ -5,6 +5,6 @@
 <column>Year</column>
 </grid>
 <menu>
-<button class="com.epam.bl.MyAction">Sort table</button>
+<button class="swing.grid.app.bl.MyAction">Sort table</button>
 </menu>
 </layout>

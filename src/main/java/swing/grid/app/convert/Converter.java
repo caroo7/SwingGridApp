@@ -1,42 +1,29 @@
 package swing.grid.app.convert;
 
-import swing.grid.app.model.Data;
-import swing.grid.app.model.Layout;
-
 import javax.xml.bind.JAXBException;
 import java.io.File;
 
-public class Converter {
+public class Converter<T> {
 
-    private Parser<Layout> parser;
+    private Class<T> clazz;
 
-    public Converter() {
+    private Parser<T> parser;
+
+    public Converter(Class<T> clazz) {
+        this.clazz = clazz;
         this.parser = new Parser<>();
     }
 
-    // make only one method (generics or polymorphism? - I think generics will be better but think about it)
-    public Layout convertLayout() {
-        Layout layout = null;
+    public Object convert(String fileName) {
+        Object convertedObject = null;
         try {
-            File layoutFile = getFile("layout.xml");
-            layout = (Layout) parser.unmarshall(layoutFile, Layout.class);
-        } catch(JAXBException e) {
+            File file = getFile(fileName);
+            convertedObject = parser.unmarshall(file, clazz);
+        } catch (JAXBException e) {
             System.out.println("Cannot unmarshall file");
             e.printStackTrace();
         }
-        return layout;
-    }
-
-    public Data convertData() {
-        Data data = null;
-        try {
-            File dataFile = getFile("data.xml");
-            data = (Data) parser.unmarshall(dataFile, Data.class);
-        } catch(JAXBException e) {
-            System.out.println("Cannot unmarshall file");
-            e.printStackTrace();
-        }
-        return data;
+        return convertedObject;
     }
 
     private File getFile(String fileName) {
