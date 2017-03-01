@@ -1,0 +1,8 @@
+<!-- not closed tags  -->
+<data>
+    <car>
+        <make>Fiat</make
+        <model>Uno</model
+        <year>2002</year
+    </car>
+</data>

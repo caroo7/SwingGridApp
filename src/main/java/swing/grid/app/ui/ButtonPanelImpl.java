@@ -1,6 +1,7 @@
 package swing.grid.app.ui;
 
 import swing.grid.app.bl.BusinessFunction;
+import swing.grid.app.i18n.InternationalizationResourceBundle;
 import swing.grid.app.model.Layout;
 
 import javax.inject.Inject;
@@ -15,9 +16,12 @@ public class ButtonPanelImpl implements ButtonPanel {
 
     private boolean isSortedActionEnabled = false;
 
+    private InternationalizationResourceBundle resourceBundle;
+
     @Inject
-    public ButtonPanelImpl(BusinessFunction businessFunction) {
+    public ButtonPanelImpl(BusinessFunction businessFunction, InternationalizationResourceBundle resourceBundle) {
         this.businessFunction = businessFunction;
+        this.resourceBundle = resourceBundle;
     }
 
     @Override
@@ -25,7 +29,8 @@ public class ButtonPanelImpl implements ButtonPanel {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         for (Layout.Menu.Button button : layout.getMenu().getButton()) {
-            JButton buttonComponent = new JButton(button.getValue());
+            String buttonCaption = resourceBundle.getMessage(button.getValue());
+            JButton buttonComponent = new JButton(buttonCaption);
             if (!isSortedActionEnabled) {
                 addActionToButton(buttonComponent);
                 isSortedActionEnabled = true;

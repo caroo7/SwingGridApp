@@ -1,0 +1,8 @@
+<layout>
+    <grid>
+        <column>Name</column>
+    </grid>
+    <menu>
+        <button>Button name</button>
+    </menu>
+</layout>

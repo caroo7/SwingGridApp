@@ -11,7 +11,7 @@ public class SortingTableModel extends DefaultTableModel implements Comparator {
 
     private static final int SORTED_COLUMN_NUMBER = 0;
 
-    public void sort() {
+    void sort() {
         Collections.sort(dataVector, this);
     }
 
