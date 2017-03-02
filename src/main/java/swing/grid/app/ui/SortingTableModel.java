@@ -1,15 +1,21 @@
 package swing.grid.app.ui;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.swing.table.DefaultTableModel;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Properties;
 import java.util.Vector;
 
 @Singleton
 public class SortingTableModel extends DefaultTableModel implements Comparator {
 
-    private static final int SORTED_COLUMN_NUMBER = 0;
+    int columnNumber;
+
+    public SortingTableModel(int columnNumber) {
+        this.columnNumber = columnNumber;
+    }
 
     void sort() {
         Collections.sort(dataVector, this);
@@ -24,9 +30,8 @@ public class SortingTableModel extends DefaultTableModel implements Comparator {
         Vector secondVector = (Vector) second;
 
         int result;
-
-        Comparable firstColumn = (Comparable) firstVector.get(SORTED_COLUMN_NUMBER);
-        Comparable secondColumn = (Comparable) secondVector.get(SORTED_COLUMN_NUMBER);
+        Comparable firstColumn = (Comparable) firstVector.get(columnNumber);
+        Comparable secondColumn = (Comparable) secondVector.get(columnNumber);
         result = firstColumn.compareTo(secondColumn);
         if (result != 0)
             return result;

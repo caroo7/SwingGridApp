@@ -5,13 +5,13 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
-public class SortingTest {
+public class SortingOnFirstColumnTest {
 
     private SortingTableModel model;
 
     @BeforeClass
     private void globalSetUp() {
-        model = new SortingTableModel();
+        model = new SortingTableModel(0);
         String[] columns = prepareSampleColumns();
 
         model.setColumnIdentifiers(columns);

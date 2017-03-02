@@ -7,6 +7,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import swing.grid.app.ui.DataTable;
 
+import java.util.Properties;
+
 public class MyActionTest {
 
     private Mockery context;

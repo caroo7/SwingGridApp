@@ -9,6 +9,7 @@ import javax.inject.Singleton;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import java.util.Properties;
 
 @Singleton
 public class DataTableImpl implements DataTable {
@@ -19,10 +20,20 @@ public class DataTableImpl implements DataTable {
 
     private InternationalizationResourceBundle resourceBundle;
 
+    private Properties properties;
+
+    private static final String SORTED_COLUMN_NUMBER_STRING = "sortedColumnNumber";
+
+    private static final String HEADER_FONT_SIZE_STRING = "headerFontSize";
+
     @Inject
-    public DataTableImpl(InternationalizationResourceBundle resourceBundle) {
-        model = new SortingTableModel();
+    public DataTableImpl(InternationalizationResourceBundle resourceBundle, Properties properties) {
+        this.properties = properties;
+        int sortColumnNumber = Integer.valueOf(properties.getProperty(SORTED_COLUMN_NUMBER_STRING));
+
+        model = new SortingTableModel(sortColumnNumber);
         table = new JTable(model);
+
         this.resourceBundle = resourceBundle;
     }
 
@@ -44,7 +55,8 @@ public class DataTableImpl implements DataTable {
 
     private void createHeader(Layout layout) {
         model.setColumnIdentifiers(prepareHeaderCaptions(layout.getGrid().getColumn()));
-        table.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 12));
+        int headerFontSize = Integer.valueOf(properties.getProperty(HEADER_FONT_SIZE_STRING));
+        table.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, headerFontSize));
     }
 
     private String[] prepareHeaderCaptions(List<String> columnHeaders) {

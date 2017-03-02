@@ -3,6 +3,7 @@ package swing.grid.app.bl;
 import swing.grid.app.ui.DataTable;
 
 import javax.inject.Inject;
+import java.util.Properties;
 
 public class MyAction implements BusinessFunction {
 

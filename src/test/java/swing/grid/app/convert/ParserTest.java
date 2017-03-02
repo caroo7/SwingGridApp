@@ -3,6 +3,7 @@ package swing.grid.app.convert;
 import org.testng.annotations.Test;
 import swing.grid.app.model.Data;
 import swing.grid.app.model.Layout;
+import swing.grid.app.util.FileUtil;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
@@ -23,7 +24,7 @@ public class ParserTest {
     @Test
     public void correctLayoutUnmarshallTest() throws Exception {
         layoutParser = new ParserImpl<>();
-        File file = loadFile(CORRECT_LAYOUT_FILE_NAME);
+        File file = FileUtil.getFile(CORRECT_LAYOUT_FILE_NAME);
 
         Layout layout = (Layout) layoutParser.unmarshall(file, Layout.class);
 
@@ -33,7 +34,7 @@ public class ParserTest {
     @Test
     public void correctDataUnmarshallTest() throws Exception {
         dataParser = new ParserImpl<>();
-        File file = loadFile(CORRECT_DATA_FILE_NAME);
+        File file = FileUtil.getFile(CORRECT_DATA_FILE_NAME);
 
         Data data = (Data) dataParser.unmarshall(file, Data.class);
 
@@ -43,7 +44,7 @@ public class ParserTest {
     @Test(expectedExceptions = JAXBException.class)
     public void incorrectLayoutUnmarshallTest() throws Exception {
         layoutParser = new ParserImpl<>();
-        File file = loadFile(INCORRECT_LAYOUT_FILE_NAME);
+        File file = FileUtil.getFile(INCORRECT_LAYOUT_FILE_NAME);
 
         layoutParser.unmarshall(file, Layout.class);
     }
@@ -51,14 +52,9 @@ public class ParserTest {
     @Test(expectedExceptions = JAXBException.class)
     public void incorrectDataUnmarshallTest() throws Exception {
         dataParser = new ParserImpl<>();
-        File file = loadFile(INCORRECT_DATA_FILE_NAME);
+        File file = FileUtil.getFile(INCORRECT_DATA_FILE_NAME);
 
         dataParser.unmarshall(file, Data.class);
-    }
-
-    private File loadFile(String name) {
-        ClassLoader classLoader = getClass().getClassLoader();
-        return new File(classLoader.getResource(name).getFile());
     }
 
 }
