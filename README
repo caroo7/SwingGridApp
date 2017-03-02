@@ -1,3 +1,6 @@
 Swing grid application - v1:
 - build dynamic layout and grid data based on xml files
 - sort grid content based on first column in alphabetical order (big letters before small, numbers before letters)
+
+How to run:
+- 'mvn clean install exec:java' from project directory

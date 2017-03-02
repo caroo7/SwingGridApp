@@ -3,8 +3,6 @@ package swing.grid.app.config;
 import com.google.inject.Provider;
 import swing.grid.app.util.FileUtil;
 
-import javax.inject.Singleton;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
