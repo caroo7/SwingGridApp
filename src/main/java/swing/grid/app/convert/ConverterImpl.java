@@ -5,7 +5,7 @@ import swing.grid.app.util.FileUtil;
 import javax.xml.bind.JAXBException;
 import java.io.File;
 
-public class ConverterImpl<T> implements Converter {
+public class ConverterImpl<T> implements Converter<T> {
 
     private Class<T> clazz;
 
@@ -17,8 +17,8 @@ public class ConverterImpl<T> implements Converter {
     }
 
     @Override
-    public Object convert(String fileName) {
-        Object convertedObject = null;
+    public T convert(String fileName) {
+        T convertedObject = null;
         try {
             File file = FileUtil.getFile(fileName);
             convertedObject = parser.unmarshall(file, clazz);

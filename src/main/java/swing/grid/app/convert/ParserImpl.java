@@ -8,10 +8,10 @@ import java.io.File;
 public class ParserImpl<T> implements Parser<T> {
 
     @Override
-    public Object unmarshall(File file, Class<T> clazz) throws JAXBException {
+    public T unmarshall(File file, Class<T> clazz) throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(clazz);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-        return unmarshaller.unmarshal(file);
+        return clazz.cast(unmarshaller.unmarshal(file));
     }
 
 }

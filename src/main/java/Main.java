@@ -1,5 +1,6 @@
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import swing.grid.app.convert.Converter;
 import swing.grid.app.convert.ConverterImpl;
 import swing.grid.app.i18n.LocaleHandler;
 import swing.grid.app.injector.ButtonInjector;
@@ -25,10 +26,10 @@ public class Main {
         Injector mainIjector = Guice.createInjector(new MainInjector(locale));
         final Properties properties = mainIjector.getInstance(Properties.class);
 
-        ConverterImpl<Layout> layoutConverter = new ConverterImpl<>(Layout.class);
-        final Layout layout = (Layout) layoutConverter.convert(properties.getProperty(LAYOUT_FILE_NAME_KEY));
-        ConverterImpl<Data> dataConverter = new ConverterImpl<>(Data.class);
-        final Data data = (Data) dataConverter.convert(properties.getProperty(DATA_FILE_NAME_KEY));
+        Converter<Layout> layoutConverter = new ConverterImpl<>(Layout.class);
+        final Layout layout = layoutConverter.convert(properties.getProperty(LAYOUT_FILE_NAME_KEY));
+        Converter<Data> dataConverter = new ConverterImpl<>(Data.class);
+        final Data data = dataConverter.convert(properties.getProperty(DATA_FILE_NAME_KEY));
 
         Injector buttonInjector = mainIjector.createChildInjector(new ButtonInjector(layout.getMenu().getButton()));
         final DataTable dataTable = buttonInjector.getInstance(DataTable.class);

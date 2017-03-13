@@ -1,7 +1,7 @@
 package swing.grid.app.convert;
 
-public interface Converter {
+public interface Converter<T> {
 
-    Object convert(String fileName);
+    T convert(String fileName);
 
 }
