@@ -1,3 +1,5 @@
+package main;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import swing.grid.app.convert.Converter;
