@@ -3,4 +3,6 @@ Swing grid application - v1:
 - sort grid content based on first column in alphabetical order (big letters before small, numbers before letters)
 
 How to run:
-- 'mvn clean install exec:java' from project directory
+- 'mvn clean install' - it executes maven build, run tests and package application to ZIP file - swing.grid.app-1.0-SNAPSHOT-dist.zip - in target location
+- ZIP file contains property files, necessary dependencies, README and application JAR file
+- run JAR file using command: 'java -jar jar_name.jar <locale> <country>'

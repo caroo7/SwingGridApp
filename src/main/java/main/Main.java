@@ -24,6 +24,7 @@ public class Main {
     private static final String DATA_FILE_NAME_KEY = "dataFileName";
 
     public static void main(String[] args) {
+
         Locale locale = LocaleHandler.getLocale(args);
         Injector mainIjector = Guice.createInjector(new MainInjector(locale));
         final Properties properties = mainIjector.getInstance(Properties.class);

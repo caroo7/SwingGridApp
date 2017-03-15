@@ -1,0 +1,39 @@
+<assembly>
+    <id>dist</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+
+    <includeBaseDirectory>true</includeBaseDirectory>
+
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>lib</outputDirectory>
+            <unpack>false</unpack>
+        </dependencySet>
+    </dependencySets>
+
+    <fileSets>
+        <fileSet>
+            <!--Get the generated application jar-->
+            <directory>${project.build.directory}</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>*.jar</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <!--Get application resources-->
+            <directory>src/main/resources</directory>
+            <outputDirectory>conf/</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <!--Get misc user files-->
+            <directory>${project.basedir}</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>README</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</assembly>
