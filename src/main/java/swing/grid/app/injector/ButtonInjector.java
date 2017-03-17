@@ -1,6 +1,7 @@
 package swing.grid.app.injector;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.name.Names;
 import swing.grid.app.bl.BusinessFunction;
 import swing.grid.app.model.Layout;
 import swing.grid.app.ui.ButtonPanel;
@@ -23,20 +24,24 @@ public class ButtonInjector extends AbstractModule {
         bind(DataTable.class).to(DataTableImpl.class);
         bind(ButtonPanel.class).to(ButtonPanelImpl.class);
 
-        bindFirstButtonAction();
+        bindAllButtons();
     }
 
-    private void bindFirstButtonAction() {
-        Layout.Menu.Button button = buttons.get(0);
-        Class clazz = null;
-        try {
-            clazz = Class.forName(button.getClazz());
-        } catch (ClassNotFoundException e) {
-            System.out.println("Cannot create class from string: " + button.getClazz());
-            e.printStackTrace();
+    private void bindAllButtons() {
+        String className = "";
+        for(Layout.Menu.Button button: buttons) {
+            Class clazz = null;
+            try {
+                clazz = Class.forName(button.getClazz());
+                className =  button.getClazz().substring(button.getClazz().lastIndexOf(".") + 1);
+            } catch (ClassNotFoundException e) {
+                System.out.println("Cannot create class from string: " + button.getClazz());
+                e.printStackTrace();
+            }
+
+            bind(BusinessFunction.class).annotatedWith(Names.named(className)).to(clazz);
         }
 
-        bind(BusinessFunction.class).to(clazz);
     }
 
 }

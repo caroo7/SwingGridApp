@@ -6,5 +6,6 @@
     </grid>
     <menu>
         <button class="swing.grid.app.bl.MyAction">Sort_table</button>
+        <button class="swing.grid.app.bl.RegisterAction">Register_user</button>
     </menu>
 </layout>

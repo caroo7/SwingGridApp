@@ -1,5 +1,6 @@
 package swing.grid.app.ui;
 
+import com.google.inject.name.Named;
 import swing.grid.app.bl.BusinessFunction;
 import swing.grid.app.i18n.InternationalizationResourceBundle;
 import swing.grid.app.model.Layout;
@@ -12,15 +13,20 @@ import java.awt.event.ActionListener;
 
 public class ButtonPanelImpl implements ButtonPanel {
 
-    private BusinessFunction businessFunction;
+    private BusinessFunction sortAction;
+
+    private BusinessFunction registerAction;
 
     private boolean isSortedActionEnabled = false;
 
     private InternationalizationResourceBundle resourceBundle;
 
     @Inject
-    public ButtonPanelImpl(BusinessFunction businessFunction, InternationalizationResourceBundle resourceBundle) {
-        this.businessFunction = businessFunction;
+    public ButtonPanelImpl(@Named("MyAction") BusinessFunction sortAction,
+                           @Named("RegisterAction") BusinessFunction registerAction,
+                           InternationalizationResourceBundle resourceBundle) {
+        this.sortAction = sortAction;
+        this.registerAction = registerAction;
         this.resourceBundle = resourceBundle;
     }
 
@@ -32,8 +38,10 @@ public class ButtonPanelImpl implements ButtonPanel {
             String buttonCaption = resourceBundle.getMessage(button.getValue());
             JButton buttonComponent = new JButton(buttonCaption);
             if (!isSortedActionEnabled) {
-                addActionToButton(buttonComponent);
+                addSortActionToButton(buttonComponent);
                 isSortedActionEnabled = true;
+            } else {
+                addRegisterActionToButton(buttonComponent);
             }
             buttonComponent.setAlignmentX(Component.CENTER_ALIGNMENT);
             panel.add(buttonComponent);
@@ -42,11 +50,20 @@ public class ButtonPanelImpl implements ButtonPanel {
         return panel;
     }
 
-    private void addActionToButton(JButton button) {
+    private void addRegisterActionToButton(JButton button) {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                businessFunction.doAction();
+                registerAction.doAction();
+            }
+        });
+    }
+
+    private void addSortActionToButton(JButton button) {
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                sortAction.doAction();
             }
         });
     }

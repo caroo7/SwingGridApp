@@ -6,3 +6,6 @@ How to run:
 - 'mvn clean install' - it executes maven build, run tests and package application to ZIP file - swing.grid.app-1.0-SNAPSHOT-dist.zip - in target location
 - ZIP file contains property files, necessary dependencies, README and application JAR file
 - run JAR file using command: 'java -jar jar_name.jar <locale> <country>'
+
+How to work with web service:
+- download install in your local repository necessary dependency: swing.grid.app.common
